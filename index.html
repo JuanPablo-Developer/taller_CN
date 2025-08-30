@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Mi Página Bonita</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #0f1226;
+            --bg-soft: #121636;
+            --card: #141a3f;
+            --text: #e7e9f3;
+            --muted: #b6b9d6;
+            --brand: #7c5cff;
+            --brand-2: #00d4ff;
+            --ring: rgba(124, 92, 255, .5);
+        }
+
+        @media (prefers-color-scheme: light) {
+            :root {
+                --bg: #fafaff;
+                --bg-soft: #f2f6ff;
+                --card: #ffffff;
+                --text: #0e1222;
+                --muted: #5a5f7a;
+                --brand: #5b45ff;
+                --brand-2: #00b5d9;
+                --ring: rgba(91, 69, 255, .25);
+            }
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            height: 100%;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+            color: var(--text);
+            background:
+                radial-gradient(1200px 700px at 10% -10%, rgba(124, 92, 255, .25), transparent 60%),
+                radial-gradient(900px 600px at 100% 0%, rgba(0, 212, 255, .22), transparent 50%),
+                linear-gradient(180deg, var(--bg-soft), var(--bg));
+            line-height: 1.6;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .container {
+            width: min(1100px, 92%);
+            margin-inline: auto;
+        }
+
+        /* Nav */
+        .nav {
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            backdrop-filter: blur(8px);
+        }
+
+        .nav-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px 0;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 800;
+            letter-spacing: .3px;
+        }
+
+        .logo-badge {
+            width: 36px;
+            height: 36px;
+            border-radius: 14px;
+            background: linear-gradient(135deg, var(--brand), var(--brand-2));
+            display: grid;
+            place-items: center;
+            color: white;
+            font-weight: 800;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, .25);
+        }
+
+        .nav-cta {
+            padding: 10px 16px;
+            border-radius: 14px;
+            background: var(--card);
+            border: 1px solid rgba(255, 255, 255, .08);
+            transition: .2s ease;
+        }
+
+        .nav-cta:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, .15);
+        }
+
+        /* Hero */
+        .hero {
+            padding: 64px 0 40px;
+            text-align: center;
+        }
+
+        .eyebrow {
+            display: inline-block;
+            padding: 6px 12px;
+            font-size: 12px;
+            letter-spacing: .4px;
+            text-transform: uppercase;
+            border-radius: 999px;
+            background: rgba(124, 92, 255, .12);
+            color: var(--muted);
+            border: 1px solid rgba(124, 92, 255, .25);
+        }
+
+        h1 {
+            font-size: clamp(28px, 6vw, 56px);
+            line-height: 1.05;
+            margin: 16px 0 12px;
+            letter-spacing: -.02em;
+        }
+
+        .lead {
+            max-width: 750px;
+            margin: 0 auto;
+            color: var(--muted);
+            font-size: clamp(16px, 2.6vw, 19px);
+        }
+
+        .cta-row {
+            margin-top: 28px;
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 12px 18px;
+            border-radius: 14px;
+            border: 1px solid rgba(255, 255, 255, .08);
+            background: var(--card);
+            font-weight: 600;
+            cursor: pointer;
+            transition: .2s ease;
+        }
+
+        .btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 10px 28px rgba(0, 0, 0, .2);
+        }
+
+        .btn.primary {
+            background: linear-gradient(135deg, var(--brand), var(--brand-2));
+            border: none;
+            color: white;
+        }
+
+        /* Feature grid */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 18px;
+            margin: 56px 0;
+        }
+
+        .card {
+            grid-column: span 12;
+            background: var(--card);
+            padding: 20px;
+            border-radius: 18px;
+            border: 1px solid rgba(255, 255, 255, .08);
+            box-shadow: 0 10px 28px rgba(0, 0, 0, .15);
+            transition: .25s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 18px 40px rgba(0, 0, 0, .22);
+        }
+
+        .card h3 {
+            margin: 6px 0 8px;
+            letter-spacing: -.02em;
+        }
+
+        .card p {
+            color: var(--muted);
+            margin: 0;
+        }
+
+        .card .kicker {
+            font-size: 12px;
+            color: var(--muted);
+            text-transform: uppercase;
+            letter-spacing: .4px;
+        }
+
+        .card--a {
+            grid-column: span 12;
+        }
+
+        .card--b,
+        .card--c,
+        .card--d {
+            grid-column: span 12;
+        }
+
+        @media (min-width: 720px) {
+            .card--a {
+                grid-column: span 12;
+            }
+
+            .card--b,
+            .card--c,
+            .card--d {
+                grid-column: span 4;
+            }
+        }
+
+        /* Info section */
+        .info {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 18px;
+            align-items: center;
+            margin: 64px 0 48px;
+        }
+
+        .info .pane {
+            background: var(--card);
+            padding: 22px;
+            border-radius: 18px;
+            border: 1px solid rgba(255, 255, 255, .08);
+        }
+
+        .info h2 {
+            margin: 0 0 10px;
+            letter-spacing: -.02em;
+        }
+
+        .info p {
+            color: var(--muted);
+        }
+
+        @media (min-width: 900px) {
+            .info {
+                grid-template-columns: 1.2fr .8fr;
+            }
+        }
+
+        .badge-list {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 12px;
+        }
+
+        .badge {
+            padding: 6px 10px;
+            border-radius: 999px;
+            border: 1px dashed rgba(255, 255, 255, .15);
+            color: var(--muted);
+            font-size: 12px;
+        }
+
+        /* Footer */
+        footer {
+            padding: 40px 0 60px;
+            color: var(--muted);
+            border-top: 1px solid rgba(255, 255, 255, .08);
+            margin-top: 40px;
+        }
+
+        .foot {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .foot a {
+            opacity: .8;
+        }
+
+        .foot a:hover {
+            opacity: 1;
+        }
+    </style>
+</head>
+
+<body>
+    <header class="nav">
+        <div class="container nav-inner">
+            <a class="logo" href="#">
+                <span class="logo-badge">★</span>
+                <span>Mi Sitio</span>
+            </a>
+            <a class="nav-cta" href="#contacto">Contacto</a>
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="hero" id="inicio">
+            <span class="eyebrow">Bienvenido</span>
+            <h1>Un HTML básico, moderno y bonito ✨</h1>
+            <p class="lead">Este es un punto de partida limpio, accesible y responsive. Incluye una cabecera fija, un
+                hero con llamadas a la acción, tarjetas de características y un pie de página elegante.</p>
+            <div class="cta-row">
+                <a class="btn primary" href="#features">Ver características</a>
+                <a class="btn" href="#contacto">Empezar</a>
+            </div>
+        </section>
+
+        <section id="features" class="grid" aria-label="Características">
+            <article class="card card--a">
+                <div class="kicker">Rápido de editar</div>
+                <h3>Todo en un solo archivo</h3>
+                <p>HTML + CSS en el mismo documento para comenzar en segundos. Cambia colores en <code>:root</code>,
+                    ajusta tipografías y listo.</p>
+            </article>
+            <article class="card card--b">
+                <div class="kicker">Flexible</div>
+                <h3>Diseño responsivo</h3>
+                <p>La grilla se adapta de 1 a 3 columnas automáticamente. Funciona muy bien en móvil y escritorio.</p>
+            </article>
+            <article class="card card--c">
+                <div class="kicker">Atractivo</div>
+                <h3>Gradientes suaves</h3>
+                <p>Fondos con gradientes sutiles y sombras suaves para una estética moderna sin frameworks.</p>
+            </article>
+            <article class="card card--d">
+                <div class="kicker">Accesible</div>
+                <h3>Semántica y contraste</h3>
+                <p>Etiquetas correctas, buen contraste por defecto y soporte para modo claro/oscuro del sistema.</p>
+            </article>
+        </section>
+
+        <section class="info" id="sobre">
+            <div class="pane">
+                <h2>Listo para personalizar</h2>
+                <p>Agrega tus secciones, cambia el título y agrega tus links. Esta plantilla es excelente para una
+                    landing personal, un proyecto escolar o un portafolio sencillo.</p>
+                <div class="badge-list">
+                    <span class="badge">HTML5</span>
+                    <span class="badge">CSS puro</span>
+                    <span class="badge">Responsive</span>
+                    <span class="badge">Accesible</span>
+                </div>
+            </div>
+            <div class="pane" id="contacto">
+                <h2>Contacto</h2>
+                <p>¿Tienes preguntas? Escribe a <a href="mailto:tuemail@ejemplo.com">tuemail@ejemplo.com</a> o reemplaza
+                    este bloque por un formulario.</p>
+                <a class="btn" href="#inicio" aria-label="Volver al inicio">⬆ Volver arriba</a>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container foot">
+            <span>© <span id="year"></span> Tu Nombre</span>
+            <div style="display:flex; gap:12px;">
+                <a href="#">Privacidad</a>
+                <a href="#">Términos</a>
+                <a href="#">GitHub</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Año automático en el footer
+        document.getElementById('year').textContent = new Date().getFullYear();
+    </script>
+</body>
+
+</html>
